@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		
+
+		* {
+			font-family: STKaiTi;
+		}
+
+		.center {
+
+			text-align: center;
+		
+		}
+
+
+		h2 {
+
+			color: red;
+			text-indent: 2em;
+		}
+
+		.in-4 {
+
+			text-indent: 4em;
+
+		}
+
+		.in-5 {
+
+			text-indent: 4em;
+
+		}
+
+		.in-6 {
+
+			/*color: red;*/
+			text-indent: 4em;
+
+		}
+
+		.in-7 {
+
+			text-indent: 4em;
+
+		}
+
+		.in-8 {
+
+			text-indent: 6em;
+
+			color: black;
+
+			font-size: 18px;
+
+		}
+
+		p {
+			font-weight: 700;
+
+			font-size: 20px;
+
+			color: orange;
+		}	
+
+
+		.line {
+			background-color: orange;
+
+			height: 1px;
+
+			margin: 0 70px;
+		}
+
+		span {
+
+			color: skyblue;
+		}
+
+	</style>
+</head>
+<body>
+
+
+	<h1 class="center">内购模块提示文字</h1>
+
+	<h2  >内购流程示意:</h2>
+
+	<p class="in-4">step 1 根据产品ID取appstore查询可以购买的产品.</p>
+	<p class="in-4">step 2 客户端根据appstore返回的产品列表进行展示, 用户点击进行购买.</p>
+	<p class="in-4">step 3 appstore 返回购买结果, 客户端做相应操作.</p>
+	<br>
+
+	<div class="line"></div>
+
+	<h3 class="in-6">提示1参考: <span>获取产品列表失败</span></h3>
+	<p class="in-8">场景描述: 当在第一步查询的时候, 可能由于网络等原因导致查询失败, 用户点击购买, 对用户进行提示</p> <br>
+
+
+	<h3 class="in-6">提示2参考: <span>未查询到指定商品</span></h3>
+	<p class="in-8">场景描述: 第一步查询的时候, 客户端查询ID与connect中配置不一致, 可能导致此错误, <此项可忽略></p> <br>
+
+
+	<h3 class="in-6">提示3参考: <span>没有购买权限</span></h3>
+	<p class="in-8">场景描述: 苹果有一套机制, 家长可以限制孩子的购买权限等, 当用户没有购买权限的时候进行提示 </p> <br>
+
+	
+
+	<h3 class="in-6">提示4参考: <span>交易失败</span></h3>
+	<p class="in-8">场景描述:  用户购买的时候, 用户取消购买, 或者已经购买过, 或者有未知错误类型等导致交易失败. </p> <br>
+
+
+	<h3 class="in-6">提示5参考: <span>恢复购买失败</span></h3>
+	<p class="in-8">场景描述:  当用户在恢复购买的过程中发生错误进行提示</p> <br>
+
+
+	<!-- <h3 class="in-6">提示6参考: <span>获取交易凭证失败</span></h3> -->
+	<!-- <p class="in-8">场景描述: 当用户购买成功后, 客户端准备获取receipt进行验证, 但是获取失败, 对用户进行提示</p> <br> -->
+
+
+	<h3 class="in-6">提示7参考: <span>您还未购买过任何产品</span></h3>
+	<p class="in-8">场景描述: 用户未购买过产品, 点击恢复购买的时候提示</p> <br>
+
+	<h3 class="in-6">提示8参考: <span>您的订阅已过期</span></h3>
+	<p class="in-8">场景描述: 当用户恢复购买后, 发现恢复的购买已经过期时提示用户</p> <br>
+
+
+	 
+
+
+
+
+</body>
+</html>

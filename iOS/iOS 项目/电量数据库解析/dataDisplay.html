@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>系统电量百分比数据, 每20秒一条数据</title>
+	<meta charset="utf-8">
+	<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+	<script crossorigin="anonymous" integrity="sha512-odXFR6jGqGLJay2LHI5hit0IEfyxJ2UexST/qvnljBPrbXMwU44CoVddZjD9EsrtS6bMOoz8lC2yU0nhyh9yyg==" src="https://lib.baomitu.com/echarts/5.0.0/echarts.common.js"></script>
+    <style type="text/css">
+        body {
+            background-color: #bbb;
+        }
+    </style>
+</head>
+<body>
+
+    <h2 style="text-align: center;">MoveX 耗电量分析</h2>
+    <br>
+    <h3 style="text-align: center;">1. 系统剩余电量变化 (每5分钟采集一次)</h3>
+    <div id="main1" style="width: 1000px; height: 600px; margin: auto; background-color: #333"></div>
+    
+    <br>
+    <br>
+    <h3 style="text-align: center;">2. MoveX运行状态变化</h3>
+    <div id="main2" style="width: 1000px; height: 600px; margin: auto; background-color: #333"></div>
+
+    <br>
+    <br>
+    <h3 style="text-align: center;">3. MoveX运行时间变化 (每小时一条数据)</h3>
+    <div id="main3" style="width: 1000px; height: 600px; margin: auto; background-color: #333"></div>
+
+    <br>
+    <br>
+    <h3 style="text-align: center;">4. MoveX详细耗电量数据</h3>
+    <div id="main4" style="width: 1000px; height: 600px; margin: auto; background-color: #333"></div>
+
+    <br>
+    <br>
+    <h3 style="text-align: center;">5.GPS总的耗电量和MoveX总的运行时间</h3>
+    <div id="main5" style="width: 1000px; height: 600px; margin: auto; background-color: #333"></div>
+
+    <br>
+    <br>
+    <h3 style="text-align: center;">6. GPS平均耗电量/小时</h3>
+    <div id="main6" style="width: 1000px; height: 600px; margin: auto; background-color: #333"></div>
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <h3 style="text-align: center;">7.每十分钟内的请求次数统计</h3>
+    <div id="main7" style="width: 1000px; height: 600px; margin: auto; background-color: #333"></div>
+    <br>
+    <br>
+    <br>
+    <br> 
+
+    <h3 style="text-align: center;">8. LocationDesiredAccuracy & DistanceFilter 变化曲线</h3>
+    <div id="main8" style="width: 1000px; height: 600px; margin: auto; background-color: #333"></div>
+    <br>
+    <br>
+    <br>
+    <br> 
+
+	<script type="text/javascript">
+                
+        var items = window.location.href.split('/');
+        items.pop();
+
+        // 1. 系统剩余电量变化
+        var jsonPath1 = items.join('/') + '/PLBatteryAgent_EventBackward_BatteryUI.json';
+        var myChart1 = echarts.init(document.getElementById('main1'));
+        $.getJSON(jsonPath1,function(option){
+            myChart1.setOption(option); 
+        })
+
+        // 2. 运行时间与状态
+        var jsonPath2 = items.join('/') + '/PLApplicationAgent_EventForward_Application.json';
+        var myChart2 = echarts.init(document.getElementById('main2'));
+        $.getJSON(jsonPath2,function(option){
+            myChart2.setOption(option); 
+        })
+
+        // 3. 运行时间统计
+        var jsonPath3 = items.join('/') + '/PLAppTimeService_Aggregate_AppRunTime.json';
+        var myChart3 = echarts.init(document.getElementById('main3'));
+        $.getJSON(jsonPath3,function(option){
+            myChart3.setOption(option); 
+        })
+
+        // 4. 详细耗电量数据
+        var jsonPath4 = items.join('/') + '/PLAccountingOperator_Aggregate_RootNodeEnergy.json';
+        var myChart4 = echarts.init(document.getElementById('main4'));
+        $.getJSON(jsonPath4,function(option){
+            myChart4.setOption(option); 
+        })
+
+        // 5. GPS总的耗电量和MoveX总的运行时间
+        var jsonPath5 = items.join('/') + '/totalRunTime.json';
+        var myChart5 = echarts.init(document.getElementById('main5'));
+        $.getJSON(jsonPath5,function(option){
+            myChart5.setOption(option); 
+        })
+
+        // 6. GPS 平均小时耗电量
+        var jsonPath6 = items.join('/') + '/average_hours.json';
+        var myChart6 = echarts.init(document.getElementById('main6'));
+        $.getJSON(jsonPath6,function(option){
+            myChart6.setOption(option); 
+        })
+
+        // 7. 每10分钟的请求次数
+        var jsonPath7 = items.join('/') + '/request_times.json';
+        var myChart7 = echarts.init(document.getElementById('main7'));
+        $.getJSON(jsonPath7,function(option){
+            myChart7.setOption(option); 
+        })
+
+
+        // 8. LocationDesiredAccuracy & DistanceFilter 变化曲线
+        var jsonPath8 = items.join('/') + '/locationDesiredAccuracy.json';
+        var myChart8 = echarts.init(document.getElementById('main8'));
+        $.getJSON(jsonPath8,function(option){
+            myChart8.setOption(option); 
+        })
+
+
+	</script>
+</body>
+</html>

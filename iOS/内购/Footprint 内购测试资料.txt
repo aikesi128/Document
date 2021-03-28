@@ -1,0 +1,31 @@
+
+
+Footprint 内购测试资料
+
+专用共享秘钥:  49d918f11aa749e1b5365b48bdef20b1
+
+包年:
+
+	名称: 	PurchaseForYear
+	产品ID:  com.csdigit.moves.yearly
+	价格:    RMB 198
+
+包月: 
+
+	名称: PurchaseForMonth 
+	产品ID: com.csdigit.moves.monthly
+	价格: RMB 30
+
+
+	测试账号:  
+
+		f1@163.com   Yundongf1  中国   	//[f4,f6,f7,]
+		f4@163.com   Yundongf4  中国 
+		f6@163.com   Yundongf6  中国 
+		f7@163.com   Yundongf7  中国 
+
+
+		f2@163.com   Yundongf2  日本
+		f8@163.com   Yundongf8  澳大利亚
+		f9@163.com	 Yundongf9  美国
+		r1@163.com	 Yundongr1  巴西

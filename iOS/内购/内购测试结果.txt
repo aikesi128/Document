@@ -1,0 +1,83 @@
+
+
+测试结果: 
+
+
+	未购买:
+	点击包月结果:  测试账号<yundong04>    --> 正在购买 --> 购买完成(代理不包含origin参数, 用户正常购买完成) --> 服务器校验成功- removeTransaction
+
+	点击包年结果:  测试账号<yundong05>	--> 正在购买 --> 购买完成 (不包含origin参数, 用户正常购买完成) -> 客户端开始校验 -> 验证成功 -> removedTransactions
+
+	点击恢复购买结果:	
+	 测试账号<yundong06> --> 没有历史购买记录, 不会更新交易状态代理, 只会提示paymentQueueRestoreCompletedTransactionsFinished --> queue.transactions.count数量为0.
+
+
+	已购买包月:  测试账号<yundog04>     
+	点击包月结果:	正在购买 --> 购买完成(包含origin参数) --> 用户已经订阅 --remove
+	点击包年结果:	
+	点击恢复购买结果:   恢复购买 ->  客户端开始校验凭证 -> 凭据验证成功 -> paymentQueueRestoreCompletedTransactionsFinished -> removedTransactions
+
+
+	已经购买了包年: 测试账号<yundog05>  
+
+	点击包月结果:   
+	点击包年结果:   正在购买 -> 购买完成 -> 包含origin参数 -> 用户已订阅 -> removedTransactions
+	点击恢复购买结果:  恢复购买 ->  客户端开始校验凭证 -> 凭据验证成功 -> paymentQueueRestoreCompletedTransactionsFinished -> removedTransactions
+
+
+	已经购买包年后点击恢复够买之后再点击:  恢复购买成功就退出界面, 所以这种情况不存在
+	已经点击恢复购买: 点击包月效果:
+	已经点击恢复购买: 点击包年效果:  正在购买 -> 购买完成 -> 包含origin参数 -> 用户已订阅 -> removedTransactions
+	已经点击恢复购买: 点击恢复购买效果:  恢复购买 ->  客户端开始校验凭证 -> 凭据验证成功 -> paymentQueueRestoreCompletedTransactionsFinished -> removedTransactions
+
+
+					------------------------------------------------------------------------------------------------
+
+
+	再测结果:  
+
+		1. 未购买:  
+
+			点击包月<yundonga1@163>:  开始购买 --> 代理<正在购买> --> 代理<购买完成, 不含ori参数> --> 服务器校验
+
+			点击包年<yundonga2@163>:	开始购买 --> 代理<正在购买> --> 代理<购买完成, 不含ori参数> --> 服务器校验
+
+			点击恢复<yundonga3@163>:  用户未购买任何项目, 直接调用<paymentQueueRestoreCompletedTransactionsFinished>   --> queue.transactions.count数量为0
+
+
+		2. 已购买包月<yundonga1@163>: 
+
+			点击包月: 	开始购买 --> 代理<正在购买> --> 代理<购买完成, 包含ori参数,说明已订阅> --> remove transaction
+
+			点击包年:  	开始购买 --> 代理<正在购买> --> 代理<购买失败(未知错误类型"无法连接到 iTunes Store")>  --> remove transaction
+
+			点击恢复: 	代理 <恢复购买 * 3> --> 服务器校验凭证
+
+		3. 已购买包年<yundonga2@163>: 
+
+			点击包月:		开始购买 --> 代理<正在购买> --> 代理<购买失败(未知错误类型"无法连接到 iTunes Store")>  --> remove transaction
+
+			点击包年:		开始购买 --> 代理<正在购买> --> 代理<购买失败,未知错误> --> remove transaction
+
+			点击恢复:     代理 <恢复购买> --> <paymentQueueRestoreCompletedTransactionsFinished> --> remove transaction --> 服务器校验
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
