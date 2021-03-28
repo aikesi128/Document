@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Small Tools</title>
+	<meta charset="utf-8">
+	<style type="text/css"> 
+
+		body{
+			background-color: rgb(62, 71, 80);
+			font-family: "STKaiti";
+			font-size: 22px;
+			color: #406249;
+			line-height: 10px;
+			padding: 0;
+			/* margin-top: -20px; */
+		}
+		.container{
+			width: 900px;
+			background-color:#ccc;
+			margin:0 auto; 
+			display: block; 
+			border-radius: 6px;
+		}
+		.toolbox { 
+			height: 300px;
+			background-color: #999;
+			position: fixed;
+			bottom: 0;
+			width: 900px; 
+			border-radius: 6px;
+		}
+
+		h4.title {
+			text-align: center;
+		}
+
+		p.toolbox-switch {
+			position: relative; 
+			left: -20px;   
+			top:-10px;
+			float: right;
+			color: yellowgreen;
+			font-weight: 700;
+		 }  
+		
+		div.type {
+			margin-top: 20px;
+			width: 400px;
+			height: 30px;
+			margin-left: 10px;
+		}
+
+		div.type span {
+			font-size: 16px;
+		}
+		span.type {
+			/* float: right; */
+			color: orange;
+			position: relative;
+		}
+		div span.pie { 
+			left: 40px;
+			/* background-color: skyblue; */ 
+		}
+		span.line { 
+			left: 80px;
+		}
+
+		/* 选中的样式 */
+		div span.select {
+			font-size: 24px;
+			font-weight: 700;
+		}
+
+		div.one{
+			position: relative;
+			/* left: 0; */
+			bottom: 0;
+			/* right: 0; */
+			height: 260px;
+			margin-left: 10px;
+			/* background-color: steelblue; */
+		}
+
+		div.two{
+			display: none;
+			margin-left: 10px;
+		}
+
+		p.start {
+			color: orange;
+			font-weight: 700;
+			font-size: 23px;
+		}
+
+		div.one ul.ratioList li {
+			color: orange;
+			list-style:none;
+			line-height: 16px;
+			font-size: 15px;
+			position: relative;
+			font-weight: 700;
+			left: -30px;
+			top: -20px;
+		}
+
+		div.mainpie {
+			display: none;
+			height: 600px;
+			width: 900px;
+			/* background-color:red; */
+		}
+
+	</style> 
+	<script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.0.0-rc.1/echarts.common.js"></script>
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body> 
+
+	<div class="container"> 
+		<!-- 标题 -->
+		<br>
+		<h4 class="title">图标生成工具</h4> 
+		<div class="mainpie" id="mainpie">dewda </div>
+		<div class="mainline" id="mainline"></div>
+
+		<!-- bottom tool box -->
+		<div class="toolbox">
+			<p class="toolbox-switch">隐藏面板</p>
+			
+			<!-- 选择图标类型 -->
+			<div class="type">
+				<span>请选择图表类型:</span>
+				<span class="type pie select">饼图</span>
+				<span class="type line">折线图</span>
+			</div>
+
+			<!-- 绘制饼图 -->
+			<div class="one">
+				<div>
+					<input class="name" type="text" placeholder="名称">
+					<input class="value" type="text" placeholder="比例">
+					<p style="display: inline;" class="sure">添加</p>
+				</div>
+				<br>
+				<ul class="ratioList">
+
+				</ul>
+				<div>	
+					<p class="start">开始生成图标</p>
+				</div>
+			</div>
+
+			<!-- 绘制折线图 -->
+			<div class="two"></div>
+
+			
+		</div>
+		
+	</div>
+ 
+	<script type="text/javascript">
+
+	$(function(){
+
+		// 修改操作区域大小
+		document.getElementsByClassName('container')[0].style.height = screen.height -200 +'px';
+		
+		// 显示或者隐藏面板
+		$('.toolbox-switch').click(function(){ 
+			if($(this).text() === '隐藏面板'){
+				$('.toolbox').animate({height:'40px'},200);
+				$(this).text('显示面板');
+			}else {
+				$('.toolbox').animate({height:'300px'},200);
+				$(this).text('隐藏面板');
+			} 
+		});
+		 
+		// 处理点击事件 默认选择的图为饼图  0:饼图  1: 线图
+		var type = 0;
+		$('.pie').click(function(){
+			type = 0;
+			$(this).addClass('select');
+			$('span.line').removeClass('select');
+		});
+
+		$('span.line').click(function(){
+			type = 1;
+			$(this).addClass('select');
+			$('span.pie').removeClass('select');
+		});
+
+		var pieDataList = new Array();
+		var nameDataList = new Array();
+		$('.sure').click(function(){
+			var itemname = $('input.name').val();
+			itemname = itemname.toString();
+			var ratio = $('input.value').val();
+
+			if(itemname.length == 0) {
+				alert('请输入名称'); 
+				return;
+			}
+			if(Number.isNaN(Number(ratio))){
+				alert('请输入合适的比例数字');
+				$('input.value').val("");
+				return;
+			}
+			// pieDataList.push(Number(ratio));
+			nameDataList.push(itemname); 
+			pieDataList.push({name:itemname,value:Number(ratio)});
+
+			// 数据合法, 在列表中追加元素
+			$('.ratioList').append('<li>'+'名称'+name+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+'比例'+ratio+'</li>');
+			
+		});
+ 
+		// 开始生成图表
+		$('p.start').click(function(){
+			// alert(nameDataList[0]);
+			var option = { 
+				tooltip: {
+					trigger: 'item', 
+				},
+				legend: { 
+					bottom: 150,
+					left: 'center',
+					data: nameDataList
+				},
+				series: [
+					{
+						type: 'pie',
+						radius: '40%',
+						center: ['50%', '50%'],
+						selectedMode: 'single',
+						data: pieDataList, 
+					}
+				]
+			};
+
+			// 准备展示数据
+			$('div.mainpie').show();
+			var myChart = echarts.init(document.getElementById('mainpie'));
+			myChart.setOption(option);
+			$('.toolbox').animate({height:'40px'},200);
+				$('.toolbox-switch').text('显示面板');
+		});
+		
+		
+	}); 
+		
+	</script>
+
+</body>
+</html>
